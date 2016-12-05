@@ -9,8 +9,8 @@
  * 		5. 2016/06/23
  * 		若需要更复杂的格式，请使用下面的timeFormat函数
  */
-function convertTime(time,type){
-  var tDate = new Date(time*1000);
+function convertTime(time, type){
+  var tDate = new Date(time);
   var year = tDate.getFullYear();
   var month = tDate.getMonth()+1;
   var day = tDate.getDate();
