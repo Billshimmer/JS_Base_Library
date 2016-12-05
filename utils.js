@@ -78,7 +78,6 @@ function toDouble(num){
 	}
 }
 exports.toDouble = toDouble;
-
 function unitTest() {
 	console.log('单元测试：');
 	console.log('日期转换：' + convertTime(1533223535, 1));
