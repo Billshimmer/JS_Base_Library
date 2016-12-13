@@ -53,7 +53,7 @@ exports.convertTime = convertTime;
 */
 exports.timeFormat = function (fmt, date) {
 if(Object.prototype.toString.call(date) !== '[object Date]') {
-  date = date ? new Date(date * 1000) : new Date();
+  date = date ? new Date(date) : new Date();
 }
   var o = {
 	  "M+": date.getMonth() + 1, //月份 
