@@ -1,4 +1,4 @@
-/* 
+/*
  * status=> oneOf "pending", "resolved", "rejected"
  *
  */
@@ -32,7 +32,7 @@ function MyPromise(executor) {
 
             //异步执行
             setTimeout(
-                function () {
+                function() {
                     for (var i = 0; i < self.onResolvedCallback.length; i++) {
                         self.onResolvedCallback[i](data);
                     }
@@ -48,7 +48,7 @@ function MyPromise(executor) {
             self.data = data;
 
             setTimeout(
-                function () {
+                function() {
                     for (var i = 0; i < self.onRejectedCallback.length; i++) {
                         self.onRejectedCallback[i](data);
                     }
@@ -65,21 +65,21 @@ function MyPromise(executor) {
     }
 }
 
-MyPromise.prototype.then = function (onResolved, onRejected) {
+MyPromise.prototype.then = function(onResolved, onRejected) {
     var self = this,
         promise2;
 
-    typeof onResolved == 'function' ? onResolved : (function (value) {
+    typeof onResolved == 'function' ? onResolved : (function(value) {
         return value;
     });
-    typeof onRejected == 'function' ? onRejected : (function (error) {
+    typeof onRejected == 'function' ? onRejected : (function(error) {
         throw error;
     });
 
     if (self.status === STATUS.PENDING) {
-        return promise2 = new MyPromise(function (resolve, reject) {
+        return promise2 = new MyPromise(function(resolve, reject) {
 
-            self.onResolvedCallback.push(function () {
+            self.onResolvedCallback.push(function() {
                 var x = onResolved(self.data);
                 if (x instanceof MyPromise) {
                     x.then(resolve, reject);
@@ -87,7 +87,7 @@ MyPromise.prototype.then = function (onResolved, onRejected) {
                 resolve(x);
             });
 
-            self.onRejectedCallback.push(function () {
+            self.onRejectedCallback.push(function() {
                 var x = onResolved(self.data);
                 if (x instanceof MyPromise) {
                     x.then(resolve, reject);
@@ -99,7 +99,7 @@ MyPromise.prototype.then = function (onResolved, onRejected) {
     }
 
     if (self.status === STATUS.RESOLVED) {
-        return promise2 = new MyPromise(function (resolve, reject) {
+        return promise2 = new MyPromise(function(resolve, reject) {
             try {
                 var x = onResolved(self.data);
                 if (x instanceof MyPromise) {
@@ -112,8 +112,8 @@ MyPromise.prototype.then = function (onResolved, onRejected) {
         });
     }
 
-    if (self.status === STATUS.REJECTED) {
-        return promise2 = new MyPromise(function (resolve, reject) {
+    if (self.status === STATUS.PENDING) {
+        return promise2 = new MyPromise(function(resolve, reject) {
             try {
                 var x = onRejected(self.data);
                 if (x instanceof MyPromise) {
@@ -126,7 +126,7 @@ MyPromise.prototype.then = function (onResolved, onRejected) {
     }
 };
 
-MyPromise.prototype.catch = function (reject) {
+MyPromise.prototype.catch = function(reject) {
     this.then(null, reject);
 };
 
